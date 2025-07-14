@@ -88,7 +88,7 @@ if st.button("Calculate", disabled=not valid):
     for split in split_names:
         st.markdown(f"- Total {split}: `${split_totals[split]:,.2f}` ({split_totals[split]/total_amount*100:.1f}%)")
 
-    # Pie chart with Cash at the top left
+    # Pie chart with Cash at the top
     # Sort pie_df so Cash is first
     pie_df = pd.DataFrame({
         "Split": split_names,
@@ -109,8 +109,8 @@ if st.button("Calculate", disabled=not valid):
         color="Split",
         color_discrete_map=color_map
     )
-    # Set Cash as the first slice (at the top left, 90 degrees)
-    fig.update_traces(sort=False, rotation=90)
+    # Set Cash as the first slice (at the top)
+    fig.update_traces(sort=False)
     st.plotly_chart(fig, use_container_width=True)
 
     st.success("Calculation complete! 🎉")
