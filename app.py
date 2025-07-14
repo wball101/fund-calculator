@@ -93,18 +93,19 @@ if st.button("Calculate", disabled=not valid):
         "Split": split_names,
         "Amount": [split_totals[split] for split in split_names]
     })
-    # Use Plotly's go.Figure for explicit color control
-    import plotly.graph_objects as go
-    color_list = ["#326171", "#445937", "#C99213"]  # Teal, Green, Mustard
-
-    fig = go.Figure(
-        data=[go.Pie(
-            labels=pie_df["Split"],
-            values=pie_df["Amount"],
-            marker=dict(colors=color_list)
-        )]
+    color_map = {
+        "Equities": "#336172",    # Teal
+        "Fixed Inc": "#445937",   # Green
+        "Cash": "#C99213"         # Mustard (Gold)
+    }
+    fig = px.pie(
+        pie_df,
+        names="Split",
+        values="Amount",
+        title="Overall Split Proportion",
+        color="Split",
+        color_discrete_map=color_map
     )
-    fig.update_layout(title_text="Overall Split Proportion")
     st.plotly_chart(fig, use_container_width=True)
 
     st.success("Calculation complete! 🎉")
