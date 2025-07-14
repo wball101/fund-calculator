@@ -110,7 +110,7 @@ if st.button("Calculate", disabled=not valid):
         color_discrete_map=color_map
     )
     # Set Cash as the first slice (at the top left, 90 degrees)
-    fig.update_traces(sort=False, rotation=90)
+    fig.update_traces(sort=False, rotation=180)
     st.plotly_chart(fig, use_container_width=True)
 
     st.success("Calculation complete! 🎉")
