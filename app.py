@@ -94,7 +94,7 @@ if st.button("Calculate", disabled=not valid):
         "Amount": [split_totals[split] for split in split_names]
     })
     color_map = {
-        "Equities": "#336172",    # Teal
+        "Equities": "#326171",    # Teal
         "Fixed Inc": "#445937",   # Green
         "Cash": "#C99213"         # Mustard (Gold)
     }
