@@ -94,9 +94,9 @@ if st.button("Calculate", disabled=not valid):
         "Amount": [split_totals[split] for split in split_names]
     })
     color_map = {
-        "Equities": "#008080",    # Teal
-        "Fixed Inc": "#228B22",   # Green
-        "Cash": "#FFD700"         # Mustard (Gold)
+        "Equities": "#336172",    # Teal
+        "Fixed Inc": "#445937",   # Green
+        "Cash": "#C99213"         # Mustard (Gold)
     }
     fig = px.pie(
         pie_df,
