@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+import plotly.express as px
 
 st.set_page_config(page_title="Fund Split Calculator", layout="centered")
 st.title("💰 Fund Split Calculator")

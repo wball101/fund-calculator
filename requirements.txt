@@ -1,1 +1,1 @@
-import plotly.express as px
+plotly==5.22.0
