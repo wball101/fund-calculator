@@ -93,7 +93,19 @@ if st.button("Calculate", disabled=not valid):
         "Split": split_names,
         "Amount": [split_totals[split] for split in split_names]
     })
-    fig = px.pie(pie_df, names="Split", values="Amount", title="Overall Split Proportion", color_discrete_sequence=px.colors.sequential.RdBu)
+    color_map = {
+        "Equities": "#008080",    # Teal
+        "Fixed Inc": "#228B22",   # Green
+        "Cash": "#FFD700"         # Mustard (Gold)
+    }
+    fig = px.pie(
+        pie_df,
+        names="Split",
+        values="Amount",
+        title="Overall Split Proportion",
+        color="Split",
+        color_discrete_map=color_map
+    )
     st.plotly_chart(fig, use_container_width=True)
 
     st.success("Calculation complete! 🎉")
