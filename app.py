@@ -58,7 +58,7 @@ for idx, row in enumerate(st.session_state.rows):
             step=1,
             key=f"{split}_{idx}"
         )
-    if cols[-1].button("- Delete Row", key=f"remove_{idx}"):
+    if cols[-1].button("-", key=f"remove_{idx}"):
         remove_row(idx)
         st.rerun()
 
@@ -114,5 +114,6 @@ if st.button("Calculate", disabled=not valid):
     st.plotly_chart(fig, use_container_width=True)
 
     st.success("Calculation complete! 🎉")
+
 
 
