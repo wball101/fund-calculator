@@ -2,12 +2,12 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-st.set_page_config(page_title="Fund Split Calculator", layout="centered")
-st.title("💰 Fund Split Calculator")
+st.set_page_config(page_title="Allocation Calculator", layout="centered")
+st.title("Allocation Calculator")
 
 st.markdown("""
-Enter your fund allocations below. You can add or remove rows as needed.
-- **Fund**: Name of the fund
+Enter your account allocations below. You can add or remove rows as needed.
+- **Account**: Name of the account
 - **Amount**: Dollar amount
 - **Splits**: Percentages for each split (must sum to 100%)
 """)
@@ -16,20 +16,20 @@ Enter your fund allocations below. You can add or remove rows as needed.
 if "rows" not in st.session_state:
     st.session_state.rows = [
         {
-            "fund": "",
+            "account": "",
             "amount": 0.0,
-            "Equities": 34,
-            "Fixed Inc": 33,
+            "Stocks": 34,
+            "Bonds": 33,
             "Cash": 33
         }
     ]
 
 def add_row():
     st.session_state.rows.append({
-        "fund": "",
+        "account": "",
         "amount": 0.0,
-        "Equities": 34,
-        "Fixed Inc": 33,
+        "Stocks": 34,
+        "Bonds": 33,
         "Cash": 33
     })
 
@@ -38,15 +38,15 @@ def remove_row(idx):
         st.session_state.rows.pop(idx)
 
 # Split columns
-split_names = ["Equities", "Fixed Inc", "Cash"]
+split_names = ["Stocks", "Bonds", "Cash"]
 # No auto-adjustment: all splits are entered manually by the user.
 # The adjust_splits function and related callbacks are removed.
 
 # Input table
-st.subheader("Fund Entries")
+st.subheader("Account Entries")
 for idx, row in enumerate(st.session_state.rows):
     cols = st.columns([2, 2] + [1]*len(split_names) + [0.5])
-    row["fund"] = cols[0].text_input("Fund", value=row["fund"], key=f"fund_{idx}")
+    row["account"] = cols[0].text_input("Account", value=row["account"], key=f"account_{idx}")
     row["amount"] = float(cols[1].number_input("Amount", min_value=0.0, value=float(row["amount"]), step=0.01, key=f"amount_{idx}", format="%.2f"))
 
     for sidx, split in enumerate(split_names):
@@ -81,7 +81,7 @@ if st.button("Calculate", disabled=not valid):
     split_totals = {split: df[f"{split}_amt"].sum() for split in split_names}
 
     st.subheader("Summary Table")
-    display_cols = ["fund", "amount"] + split_names + [f"{split}_amt" for split in split_names]
+    display_cols = ["account", "amount"] + split_names + [f"{split}_amt" for split in split_names]
     st.dataframe(df[display_cols], use_container_width=True)
 
     st.markdown(f"**Total Amount:** `${total_amount:,.2f}`")
@@ -95,11 +95,11 @@ if st.button("Calculate", disabled=not valid):
         "Amount": [split_totals[split] for split in split_names]
     })
     # Reorder so Cash is first
-    pie_df = pie_df.set_index("Split").loc[["Cash", "Equities", "Fixed Inc"]].reset_index()
+    pie_df = pie_df.set_index("Split").loc[["Cash", "Stocks", "Bonds"]].reset_index()
     color_map = {
         "Cash": "#C99213",       # Mustard (Gold)
-        "Equities": "#336172",    # Teal
-        "Fixed Inc": "#445937"   # Green
+        "Stocks": "#336172",    # Teal
+        "Bonds": "#445937"   # Green
     }
     fig = px.pie(
         pie_df,
@@ -114,3 +114,4 @@ if st.button("Calculate", disabled=not valid):
     st.plotly_chart(fig, use_container_width=True)
 
     st.success("Calculation complete! 🎉")
+
